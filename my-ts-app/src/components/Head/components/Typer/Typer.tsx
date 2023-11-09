@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import ShiningInputIcon from "./components/ShiningInputIcon";
+import content from "./components/content";
+import { isFloat32Array } from "util/types";
 
 const Typer = () => {
   const [text, setText] = useState("");
@@ -14,20 +17,25 @@ const Typer = () => {
       setText(text_);
       i++;
       if (i === length) {
-        setIsTyped(true);
         clearInterval(interval);
       }
     }, typingSpeed);
   };
 
   useEffect(() => {
-    const content = [
-      "Hello, \n visters, \n Welcome to my website.",
-      "I'm Douglas Yang, \n a frontend developer.",
-      "The son of React JS, \n the father of Vue JS.😁",
-    ];
+    const getprev = (n: number) => {
+      if (n === 0) {
+        return 0;
+      } else {
+        return n - 1;
+      }
+    };
     if (!isTyped) {
-      type(content[1]);
+      for (let i = 0; i < content.length; i++) {
+        setTimeout(() => {
+          type(content[i]);
+        }, i * (content[getprev(i)].length + 4) * typingSpeed);
+      }
     } else {
       setTimeout(() => {
         setText("");
@@ -36,9 +44,11 @@ const Typer = () => {
   }, [isTyped]);
 
   return (
-    <div className="flex items-center w-full p-5 bg-black text-white font-sans text-4xl font-bold">
-      <div className="leading-[4rem] whitespace-nowrap">{text}</div>
-      <span className="inline"> | </span>
+    <div className="flex items-center w-full p-10 bg-black text-white font-apple-sans text-4xl font-bold">
+      <div className="leading-[4rem] whitespace-pre min-h-[50vh]">
+        {text}
+        <ShiningInputIcon />
+      </div>
     </div>
   );
 };
