@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import ShiningInputIcon from "./components/ShiningInputIcon";
 import content from "./components/content";
-import { isFloat32Array } from "util/types";
+import Logo from "./components/Logo";
 
 const Typer = () => {
   const [text, setText] = useState("");
-  const [isTyped, setIsTyped] = useState(false);
+  // const [isTyped, setIsTyped] = useState(false);
+  const isTyped = false;
   const typingSpeed = 150;
 
   const type = (line: string) => {
@@ -44,10 +45,15 @@ const Typer = () => {
   }, [isTyped]);
 
   return (
-    <div className="flex items-center w-full p-10 bg-black text-white font-apple-sans text-4xl font-bold">
-      <div className="leading-[4rem] whitespace-pre min-h-[50vh]">
+    <div className="flex items-center w-full p-5 bg-black text-white font-sans text-4xl font-bold rounded-2xl">
+      <div className="leading-[4rem] w-1/3 whitespace-pre min-h-[50vh]">
         {text}
         <ShiningInputIcon />
+      </div>
+      <div className="flex flex-col items-center justify-center h-full w-1/3 group">
+        <hr className="border-white border-2 animate-wiggleback group-hover:animate-wiggle" />
+        <Logo />
+        <hr className="border-white border-2 animate-wiggleback group-hover:animate-wiggle" />
       </div>
     </div>
   );
