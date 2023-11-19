@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# resources
+/public/galactic_incident
+
 # production
 /build
 
